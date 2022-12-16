@@ -26,8 +26,8 @@ pipeline {
             }
 
             steps {
-                git 'https://github.com/danielitogomez/api-model-template'
-                sh './mvnw clean compile'
+                sh 'ls -alh && exit 1'
+                //sh './mvnw clean compile'
             }
         }
         
