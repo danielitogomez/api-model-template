@@ -38,7 +38,6 @@ pipeline {
 
             steps {
                 sh './mvnw test'  
-             //   sh './mvnw clean package'
             }
 
             post {
@@ -67,7 +66,7 @@ pipeline {
 
             steps {
                 sh 'echo building...'
-                sh 'cd ${WORKSPACE}${DIR} && docker build -t danielitogomez/java-rest-api-calculator:latest .'
+                sh 'docker build -t danielgomeza/java-rest-api-calculator:latest .'
             }
         }
         
@@ -91,7 +90,7 @@ pipeline {
 
 			steps {
                 sh 'echo pushing...'
-				sh 'docker push danielitogomez/java-rest-api-calculator:latest'
+				sh 'docker push danielgomeza/java-rest-api-calculator:latest'
 			}
 		}
 
