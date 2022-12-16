@@ -26,6 +26,7 @@ pipeline {
             }
 
             steps {
+                sh 'echo compile test...'
                 sh './mvnw clean compile'
             }
         }
@@ -37,6 +38,7 @@ pipeline {
             }
 
             steps {
+                sh 'echo build test...'
                 sh './mvnw test'  
             }
 
@@ -54,6 +56,7 @@ pipeline {
             }
 
             steps {
+                sh 'echo Integration test...'
                 sh './mvnw test -Dtest="AddControllerIntTest"'
             }
         }
@@ -63,7 +66,7 @@ pipeline {
            options {
                 timeout(time: 5, unit: 'MINUTES')
             }
-
+// To Do Fix to manage dinamically the image tag
             steps {
                 sh 'echo building...'
                 sh 'docker build -t danielgomeza/java-rest-api-calculator:latest .'
@@ -87,7 +90,7 @@ pipeline {
             options {
                 timeout(time: 10, unit: 'MINUTES')
             }
-
+// To Do Fix to manage dinamically the image tag
 			steps {
                 sh 'echo pushing...'
 				sh 'docker push danielgomeza/java-rest-api-calculator:latest'
