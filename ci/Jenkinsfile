@@ -26,8 +26,7 @@ pipeline {
             }
 
             steps {
-                sh 'ls -alh && exit 1'
-            //  sh './mvnw clean compile'
+                sh './mvnw clean compile'
             }
         }
         
@@ -68,8 +67,7 @@ pipeline {
 
             steps {
                 sh 'echo building...'
-                sh 'ls -alh && exit 1'
-               // sh 'cd ${WORKSPACE}${DIR} && docker build -t danielitogomez/java-rest-api-calculator:latest .'
+                sh 'cd ${WORKSPACE}${DIR} && docker build -t danielitogomez/java-rest-api-calculator:latest .'
             }
         }
         
