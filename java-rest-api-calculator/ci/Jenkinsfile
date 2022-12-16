@@ -9,8 +9,8 @@ pipeline {
             }
 
             steps {
-                git 'https://github.com/danielitogomez/java-rest-api-calculator'
-                sh './mvnw clean compile'
+                git 'https://github.com/danielitogomez/api-model-template'
+                sh 'cd java-rest-api-calculator && ./mvnw clean compile'
             }
         }
         stage('Build test') {
