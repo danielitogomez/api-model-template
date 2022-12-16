@@ -3,8 +3,6 @@ pipeline {
 
     environment {
         DOCKERHUB_CREDENTIALS=credentials('dockerhub')
-        WORKSPACE = pwd()
-        DIR = "/api-model-template/java-rest-api-calculator/ci"
 	}
 
     stages {
