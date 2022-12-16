@@ -58,7 +58,8 @@ pipeline {
 
             steps {
                 sh 'echo building...'
-                sh 'cd ${WORKSPACE}${DIR} && docker build -t danielitogomez/java-rest-api-calculator:latest .'
+                sh 'ls -alh && exit 1'
+               // sh 'cd ${WORKSPACE}${DIR} && docker build -t danielitogomez/java-rest-api-calculator:latest .'
             }
         }
         
