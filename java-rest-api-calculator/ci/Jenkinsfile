@@ -1,8 +1,15 @@
 pipeline {
     agent any
 
+    environment {
+        DOCKERHUB_CREDENTIALS=credentials('dockerhub')
+        WORKSPACE = pwd()
+        DIR = "/api-model-template/java-rest-api-calculator/ci"
+	}
+
     stages {
-        stage('Build') {
+        
+        stage('Build compile') {
 
            options {
                 timeout(time: 5, unit: 'MINUTES')
@@ -13,6 +20,7 @@ pipeline {
                 sh './mvnw clean compile'
             }
         }
+        
         stage('Build test') {
 
            options {
@@ -30,6 +38,7 @@ pipeline {
                 }
             }
         }       
+        
         stage('Integration test') {
 
            options {
@@ -40,5 +49,48 @@ pipeline {
                 sh './mvnw test -Dtest="AddControllerIntTest"'
             }
         }
+
+        stage('Build Image') {
+
+           options {
+                timeout(time: 5, unit: 'MINUTES')
+            }
+
+            steps {
+                sh 'echo building...'
+                sh 'cd ${WORKSPACE}${DIR} && docker build -t danielitogomez/java-rest-api-calculator:latest .'
+            }
+        }
+        
+        stage('Login to DockerHub') {
+
+            options {
+                timeout(time: 10, unit: 'MINUTES')
+            }
+
+			steps {
+                sh 'echo login...'
+				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+			}
+		}
+        
+        stage('Push Image to DockerHub') {
+
+            options {
+                timeout(time: 10, unit: 'MINUTES')
+            }
+
+			steps {
+                sh 'echo pushing...'
+				sh 'docker push danielitogomez/java-rest-api-calculator:latest'
+			}
+		}
+
     }
+    	post {
+		always {
+                sh 'echo logout'
+		        sh 'docker logout'
+		}
+	}
 }
