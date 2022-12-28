@@ -91,6 +91,7 @@ pipeline {
                 timeout(time: 10, unit: 'MINUTES')
             }
 // To Do Fix to manage dinamically the image tag
+// To Do output the last version
 			steps {
                 sh 'echo pushing...'
 				sh 'docker push danielgomeza/java-rest-api-calculator:latest'
